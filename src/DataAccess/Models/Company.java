@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Company implements Serializable {
-    String name;
-    Double discount;
+    public String name;
+    public Double discount;
 
-    List<Client> clients;
 }

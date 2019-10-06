@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public abstract class Service implements Serializable {
-    int sourceClientId;
-    int destinationClientId;
-    LocalDateTime dateTime;
+    public int sourceClientId;
+    public int destinationClientId;
+    public LocalDateTime dateTime;
 
 
 

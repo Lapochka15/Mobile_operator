@@ -5,5 +5,5 @@ import DataAccess.Models.Service;
 import java.sql.Time;
 
 public class Call extends Service {
-    Time duration;
+    public Time duration;
 }

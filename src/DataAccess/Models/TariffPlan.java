@@ -3,11 +3,11 @@ package DataAccess.Models;
 import java.io.Serializable;
 
 public class TariffPlan implements Serializable {
-    String name;
-    Double subscriptionFee;
-    Debit debit;
+    public String name;
+    public Double subscriptionFee;
+    public Debit debit;
 
-    Double smsPrice;
-    Double callPrice;
+    public Double smsPrice;
+    public Double callPrice;
 
 }
