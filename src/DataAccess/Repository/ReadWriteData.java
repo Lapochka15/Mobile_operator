@@ -5,6 +5,8 @@ package DataAccess.Repository;
 import DataAccess.Models.Client;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadWriteData<T> {
     private String _fileName;
@@ -13,7 +15,7 @@ public class ReadWriteData<T> {
         _fileName = fileName;
     }
 
-    public void WriteArrayOfEntities(T[] entities) throws IOException {
+    public void WriteArrayOfEntities(ArrayList<T> entities) throws IOException {
 
         FileOutputStream outputStream = new FileOutputStream(_fileName);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -22,10 +24,10 @@ public class ReadWriteData<T> {
         objectOutputStream.close();
     }
 
-    public T[] ReadArrayOfEntities() throws IOException, ClassNotFoundException {
-        FileInputStream inputStream = new FileInputStream("temp.out");
+    public ArrayList<T> ReadArrayOfEntities() throws IOException, ClassNotFoundException {
+        FileInputStream inputStream = new FileInputStream(_fileName);
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        T[] entities = (T[]) objectInputStream.readObject();
+        ArrayList<T> entities = (ArrayList<T>) objectInputStream.readObject();
         objectInputStream.close();
         return entities;
     }

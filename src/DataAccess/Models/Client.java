@@ -1,6 +1,7 @@
 package DataAccess.Models;
 
 import java.io.Serializable;
+import java.io.StringReader;
 
 public class Client  implements Serializable {
     public String name;
@@ -21,6 +22,10 @@ public class Client  implements Serializable {
         this.name = name;
         this.surname = surname;
         this.tariffPlanId = tariffId;
+    }
+
+    public String toString(){
+        return String.format("%s, %s, %f %d %d", name, surname, bankAccount, tariffPlanId, companyId);
     }
 
 
