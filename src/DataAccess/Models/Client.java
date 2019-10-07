@@ -25,7 +25,7 @@ public class Client  implements Serializable {
     }
 
     public String toString(){
-        return String.format("%s, %s, %f %d %d", name, surname, bankAccount, tariffPlanId, companyId);
+        return String.format("%20s|%15s|%2f|%2d|%2d", name, surname, bankAccount, tariffPlanId, companyId);
     }
 
 

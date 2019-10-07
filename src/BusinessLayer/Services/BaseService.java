@@ -4,7 +4,6 @@ import DataAccess.Repository.ReadWriteData;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class BaseService<T> {
 
@@ -15,40 +14,62 @@ public abstract class BaseService<T> {
         _readWriteData = new ReadWriteData<T>(filePath);
     }
 
-    private void LoadEnrities() throws IOException, ClassNotFoundException {
+    private void LoadEntities() throws IOException, ClassNotFoundException {
         _entities = (ArrayList<T>)_readWriteData.ReadArrayOfEntities();
     }
 
-    public ArrayList<T> GetEntities() throws IOException, ClassNotFoundException {
-        if (_entities == null)
-            LoadEnrities();
-        return _entities;
+    public T GetEntity(int position){
+        if (position < _entities.size())
+            return _entities.get(position);
+        return null;
     }
+
     
     public void ShowAll() throws IOException, ClassNotFoundException {
         if (_entities == null)
-            LoadEnrities();
+            LoadEntities();
         for (T entity: _entities ) {
             System.out.println(entity);
         }
     }
 
-    public void AddElement(T entity) throws IOException, ClassNotFoundException {
+    public void AddEntity(T entity) throws IOException, ClassNotFoundException {
         if (_entities == null)
-            LoadEnrities();
+            LoadEntities();
         this._entities.add(entity);
     }
 
-    public void RemoveElement(T entity) throws IOException, ClassNotFoundException {
+    public void AddEntity(T[] entities) throws IOException, ClassNotFoundException {
+        if(_entities == null)
+            LoadEntities();
+        for(T entity : entities){
+            this.AddEntity(entity);
+        }
+    }
+
+    public void RemoveEntity(T entity) throws IOException, ClassNotFoundException {
         if (_entities == null)
-            LoadEnrities();
+            LoadEntities();
         _entities.remove(entity);
     }
 
-    public void Save() throws IOException {
+    public void RemoveEntity(T[] entities) throws IOException, ClassNotFoundException {
+        if (_entities == null)
+            LoadEntities();
+        for(T entity : entities) {
+            this.RemoveEntity(entity);
+        }
+    }
+
+    public void UpdateEntity(T entityNew, int position) throws IOException, ClassNotFoundException {
+        if (_entities == null)
+            LoadEntities();
+        this._entities.set(position, entityNew);
+    }
+
+    public void SaveEntities() throws IOException {
         if(_entities != null)
             _readWriteData.WriteArrayOfEntities(_entities);
     }
-
 
 }
