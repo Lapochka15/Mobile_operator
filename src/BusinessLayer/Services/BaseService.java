@@ -18,7 +18,9 @@ public abstract class BaseService<T> {
         _entities = (ArrayList<T>)_readWriteData.ReadArrayOfEntities();
     }
 
-    public T GetEntity(int position){
+    public T GetEntity(int position) throws IOException, ClassNotFoundException {
+        if (_entities == null)
+            LoadEntities();
         if (position < _entities.size())
             return _entities.get(position);
         return null;
