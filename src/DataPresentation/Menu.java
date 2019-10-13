@@ -1,25 +1,28 @@
 package DataPresentation;
 
+import DataPresentation.EntityMenu.*;
+
 import java.util.Scanner;
 
 public class Menu {
 
-    public static int StartMenu(){
+    public static int CRUDMenu(){
         int choice;
         do {
             Scanner in = new Scanner(System.in);
             System.out.println("----------Menu----------");
             System.out.println("1. Show Entities");
-            System.out.println("2. Delete Entity");
-            System.out.println("3. Update Entity");
-            System.out.println("4. Exit");
+            System.out.println("2. Add Entities");
+            System.out.println("3. Delete Entity");
+            System.out.println("4. Update Entity");
+            System.out.println("5. To entity menu");
             System.out.println("Enter you choice");
             choice = in.nextInt();
-        } while (choice > 4 || choice < 0 );
+        } while (choice > 5 || choice < 0 );
         return choice;
     }
 
-    public static int ChooseEntity(){
+    public static BaseMenu ChooseEntity(){
         int choice;
         do {
             Scanner in = new Scanner(System.in);
@@ -30,10 +33,18 @@ public class Menu {
             System.out.println("3. Tariff Plan");
             System.out.println("4. Sms");
             System.out.println("5. Call");
-            System.out.println("6. Return to start menu");
+            System.out.println("6. Exit");
             System.out.println("Enter you choice");
             choice = in.nextInt();
         } while (choice > 6 || choice < 0 );
-        return choice;
+
+        switch (choice){
+            case 1: return new ClientMenu();
+            case 2: return new CompanyMenu();
+            case 3: return new TariffPlanMenu();
+            case 4: return new SMSMenu();
+            case 5: return new CallMenu();
+        }
+        return null;
     }
 }

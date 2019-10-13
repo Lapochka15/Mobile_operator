@@ -1,6 +1,7 @@
 package DataPresentation;
 
 import BusinessLayer.Services.*;
+import DataPresentation.EntityMenu.BaseMenu;
 
 public class ManageController {
 
@@ -20,16 +21,20 @@ public class ManageController {
 
 
     public void EntryPoint(){
-        int startChoice = Menu.StartMenu();
-        int entityChoice;
-        switch (startChoice){
-            case 1-3: {
-                entityChoice = Menu.ChooseEntity();
-            }
-            case 4:
-                return;
+        BaseMenu chosenEntityMenu = Menu.ChooseEntity();
+
+        if (chosenEntityMenu == null)
+            return;
+
+        int crudChoice = Menu.CRUDMenu();
+
+        switch(crudChoice){
+            case 1: chosenEntityMenu.Show();
+            case 2: chosenEntityMenu.Add();
+            case 3: chosenEntityMenu.Delete();
+            case 4: chosenEntityMenu.Update();
         }
 
-        
+
     }
 }
