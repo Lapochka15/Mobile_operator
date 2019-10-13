@@ -5,6 +5,8 @@ import jdk.internal.org.objectweb.asm.util.TraceAnnotationVisitor;
 import java.io.Serializable;
 
 public class TariffPlan implements Serializable {
+    public int id;
+
     public String name;
     public Double subscriptionFee;
     public Debit debit;
