@@ -15,10 +15,18 @@ public class Call extends Service {
         this.dateTime = LocalDateTime.now();
     }
 
+    public Call(int source, int destination, Time duration, int id){
+        this.sourceClientId = source;
+        this.destinationClientId = destination;
+        this.duration = duration;
+        this.dateTime = LocalDateTime.now();
+        this.serviceId = id;
+    }
+
     public Call(){
     }
 
     public String toString(){
-        return String.format("%6d|%6d|%t|%t", this.sourceClientId, this.destinationClientId, this.duration, this.dateTime);
+        return String.format("%3d|%6d|%6d|%tr|%tr",this.serviceId, this.sourceClientId, this.destinationClientId, this.duration, this.dateTime);
     }
 }

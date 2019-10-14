@@ -1,5 +1,7 @@
 package BusinessLayer.Services;
 
+import BusinessLayer.Models.Comparator.CompanyComparator.CompanyByIdComparator;
+import BusinessLayer.Models.Comparator.CompanyComparator.CompanyByNameComparator;
 import DataAccess.Models.Company;
 
 public class CompanyService extends BaseService<Company> {
@@ -12,5 +14,19 @@ public class CompanyService extends BaseService<Company> {
     public CompanyService(){
         super("company.txt");
         this._fileName = "company.txt";
+    }
+
+    public void ShowCompaniesSortedByName(){
+        this._entities.sort(new CompanyByNameComparator());
+        for (Company client: _entities ) {
+            System.out.println(client);
+        }
+    }
+
+    public void ShowCompaniesSortedById(){
+        this._entities.sort(new CompanyByIdComparator());
+        for (Company client: _entities ) {
+            System.out.println(client);
+        }
     }
 }

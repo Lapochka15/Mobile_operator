@@ -24,11 +24,17 @@ public class ReadWriteData<T> {
         objectOutputStream.close();
     }
 
-    public ArrayList<T> ReadArrayOfEntities() throws IOException, ClassNotFoundException {
-        FileInputStream inputStream = new FileInputStream(_fileName);
-        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        ArrayList<T> entities = (ArrayList<T>) objectInputStream.readObject();
-        objectInputStream.close();
+    public ArrayList<T> ReadArrayOfEntities() {
+        ArrayList<T> entities;
+        try {
+            FileInputStream inputStream = new FileInputStream(_fileName);
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            entities = (ArrayList<T>) objectInputStream.readObject();
+            objectInputStream.close();
+        }
+        catch(Exception e){
+            entities = new ArrayList<T>();
+        }
         return entities;
     }
 }

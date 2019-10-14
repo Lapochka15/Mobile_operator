@@ -14,11 +14,11 @@ public abstract class BaseService<T> {
         _readWriteData = new ReadWriteData<T>(filePath);
     }
 
-    private void LoadEntities() throws IOException, ClassNotFoundException {
+    protected void LoadEntities(){
         _entities = (ArrayList<T>)_readWriteData.ReadArrayOfEntities();
     }
 
-    public T GetEntity(int position) throws IOException, ClassNotFoundException {
+    public T GetEntity(int position) {
         if (_entities == null)
             LoadEntities();
         if (position < _entities.size())
@@ -27,7 +27,7 @@ public abstract class BaseService<T> {
     }
 
     
-    public void ShowAll() throws IOException, ClassNotFoundException {
+    public void ShowAll() {
         if (_entities == null)
             LoadEntities();
         for (T entity: _entities ) {
@@ -35,13 +35,13 @@ public abstract class BaseService<T> {
         }
     }
 
-    public void AddEntity(T entity) throws IOException, ClassNotFoundException {
+    public void AddEntity(T entity) {
         if (_entities == null)
             LoadEntities();
         this._entities.add(entity);
     }
 
-    public void AddEntity(T[] entities) throws IOException, ClassNotFoundException {
+    public void AddEntity(T[] entities) {
         if(_entities == null)
             LoadEntities();
         for(T entity : entities){
@@ -49,13 +49,13 @@ public abstract class BaseService<T> {
         }
     }
 
-    public void RemoveEntity(T entity) throws IOException, ClassNotFoundException {
+    public void RemoveEntity(T entity)  {
         if (_entities == null)
             LoadEntities();
         _entities.remove(entity);
     }
 
-    public void RemoveEntity(T[] entities) throws IOException, ClassNotFoundException {
+    public void RemoveEntity(T[] entities) {
         if (_entities == null)
             LoadEntities();
         for(T entity : entities) {
@@ -63,7 +63,7 @@ public abstract class BaseService<T> {
         }
     }
 
-    public void UpdateEntity(T entityNew, int position) throws IOException, ClassNotFoundException {
+    public void UpdateEntity(T entityNew, int position)  {
         if (_entities == null)
             LoadEntities();
         this._entities.set(position, entityNew);

@@ -1,8 +1,14 @@
+import BusinessLayer.Services.CallService;
 import BusinessLayer.Services.ClientService;
+import DataAccess.Models.Call;
 import DataAccess.Models.Client;
+import DataPresentation.ManageController;
 import DataPresentation.Menu;
+import sun.security.acl.AclEntryImpl;
 
 import java.io.*;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Main {
@@ -18,6 +24,14 @@ public class Main {
             //clientService.RemoveEntity(clientService.GetEntity(0));
             clientService.SaveEntities();
             clientService.ShowAll();*/
-        Menu.StartMenu();
+
+        CallService callService = new CallService();
+        /*callService.AddEntity(new Call(1, 2, new Time(30), 1));
+        callService.AddEntity(new Call(2, 1, new Time(40), 2));
+        callService.AddEntity(new Call(1, 2, new Time(50), 3));
+        callService.AddEntity(new Call(2, 1, new Time(50), 4));
+        callService.SaveEntities();*/
+        ManageController manageController = new ManageController();
+        manageController.EntryPoint();
     }
 }
