@@ -1,18 +1,13 @@
 package DataPresentation.EntityMenu;
 
-import BusinessLayer.Services.BaseService;
-
-import java.io.IOException;
-import java.util.Scanner;
-
 public abstract class BaseMenu {
 
-    public abstract void Show() ;
-    public abstract void Update();
+    public abstract void show() ;
+    public abstract void update();
 
-    public abstract boolean Delete();
-    public abstract void Add();
+    public abstract boolean delete();
+    public abstract void add();
 
-    public abstract void SaveChanges();
+    public abstract void saveChanges();
 
 }

@@ -18,37 +18,45 @@ public class SMSService extends BaseService<SMS> {
         this._fileName = "sms.txt";
     }
 
-    public void ShowSmsSortedByTextSize(){
+    public void showSmsSortedByTextSize(){
+        if (this._entities == null)
+            loadEntities();
         this._entities.sort(new SmsByTextSizeComparator());
         for (SMS client: _entities ) {
             System.out.println(client);
         }
     }
 
-    public void ShowSmsSortedBySource(){
+    public void showSmsSortedBySource(){
+        if (this._entities == null)
+            loadEntities();
         this._entities.sort(new ServiceBySourceComparator());
         for (SMS client: _entities ) {
             System.out.println(client);
         }
     }
 
-    public void ShowSmsSortedById(){
+    public void showSmsSortedById(){
+        if (this._entities == null)
+            loadEntities();
         this._entities.sort(new ServiceByIdComparator());
         for (SMS client: _entities ) {
             System.out.println(client);
         }
     }
 
-    public void ShowSmsSortedByDate(){
+    public void showSmsSortedByDate(){
+        if (this._entities == null)
+            loadEntities();
         this._entities.sort(new ServiceByDateTimeComparator());
         for (SMS client: _entities ) {
             System.out.println(client);
         }
     }
 
-    public SMS GetEntityByID(int id){
+    public SMS getEntityByID(int id){
         if (this._entities == null)
-            LoadEntities();
+            loadEntities();
         for (SMS entity: this._entities) {
             if(entity.serviceId == id){
                 return entity;

@@ -1,6 +1,5 @@
 package DataPresentation.EntityMenu;
 
-import BusinessLayer.Services.ClientService;
 import BusinessLayer.Services.CompanyService;
 import DataAccess.Models.Company;
 
@@ -10,33 +9,33 @@ public class CompanyMenu extends BaseMenu{
 
     private CompanyService _companyService = new CompanyService();
     @Override
-    public void Show() {
+    public void show() {
         int choice;
         do {
             Scanner in = new Scanner(System.in);
             System.out.println("----------Menu----------");
-            System.out.println("1. Show Call sorted by Id");
-            System.out.println("2. Show Call sorted by Name");
+            System.out.println("1. Show Company sorted by Id");
+            System.out.println("2. Show Company sorted by Name");
             System.out.println("Enter you choice");
             choice = in.nextInt();
         } while (choice > 2 || choice < 0 );
         switch (choice){
             case 1:
-                _companyService.ShowCompaniesSortedById();
+                _companyService.showCompaniesSortedById();
                 break;
             case 2:
-                _companyService.ShowCompaniesSortedByName();
+                _companyService.showCompaniesSortedByName();
                 break;
         }
         return;
     }
 
     @Override
-    public void Update() {
+    public void update() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter Id of Entity");
         int entityId = in.nextInt();
-        Company resultEntity = _companyService.GetEntityByID(entityId);
+        Company resultEntity = _companyService.getEntityByID(entityId);
         System.out.println(resultEntity);
         if (resultEntity == null) {
             System.out.println("Not found entity with "+ entityId + " Id");
@@ -52,22 +51,22 @@ public class CompanyMenu extends BaseMenu{
     }
 
     @Override
-    public boolean Delete() {
+    public boolean delete() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter Id of Entity");
         int entityId = in.nextInt();
-        Company resultEntity = _companyService.GetEntityByID(entityId);
+        Company resultEntity = _companyService.getEntityByID(entityId);
         System.out.println(resultEntity);
         if (resultEntity == null) {
             System.out.println("Not found entity with "+ entityId + " Id");
             return false;
         }
-        _companyService.RemoveEntity(resultEntity);
+        _companyService.removeEntity(resultEntity);
         return true;
     }
 
     @Override
-    public void Add() {
+    public void add() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Enter Company Name :");
@@ -75,16 +74,16 @@ public class CompanyMenu extends BaseMenu{
         System.out.println("Enter discount:");
         double discount = in.nextDouble();
 
-        int lengthOfCollection = _companyService.GetAmountOfEntities();
-        Company lastClient = _companyService.GetEntityByPosition(lengthOfCollection - 1 );
+        int lengthOfCollection = _companyService.getAmountOfEntities();
+        Company lastCompany = _companyService.getEntityByPosition(lengthOfCollection - 1 );
 
-        Company client= new Company(lastClient.companyId, name, discount);
+        Company company= new Company(lastCompany == null? 0: lastCompany.companyId + 1, name, discount);
 
-        _companyService.AddEntity(client);
+        _companyService.addEntity(company);
     }
 
     @Override
-    public void SaveChanges() {
-        _companyService.SaveEntities();
+    public void saveChanges() {
+        _companyService.saveEntities();
     }
 }

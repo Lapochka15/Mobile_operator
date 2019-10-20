@@ -16,22 +16,26 @@ public class CompanyService extends BaseService<Company> {
         this._fileName = "company.txt";
     }
 
-    public void ShowCompaniesSortedByName(){
+    public void showCompaniesSortedByName(){
+        if (this._entities == null)
+            loadEntities();
         this._entities.sort(new CompanyByNameComparator());
         for (Company client: _entities ) {
             System.out.println(client);
         }
     }
 
-    public void ShowCompaniesSortedById(){
+    public void showCompaniesSortedById(){
+        if (this._entities == null)
+            loadEntities();
         this._entities.sort(new CompanyByIdComparator());
         for (Company client: _entities ) {
             System.out.println(client);
         }
     }
-    public Company GetEntityByID(int id){
+    public Company getEntityByID(int id){
         if (this._entities == null)
-            LoadEntities();
+            loadEntities();
         for (Company entity: this._entities) {
             if(entity.companyId == id){
                 return entity;

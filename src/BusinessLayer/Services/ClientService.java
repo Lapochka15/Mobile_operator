@@ -5,12 +5,6 @@ import BusinessLayer.Models.Comparator.ClientComparator.ClientByCompanyComparato
 import BusinessLayer.Models.Comparator.ClientComparator.ClientByIdComparator;
 import BusinessLayer.Models.Comparator.ClientComparator.ClientBySurnameComparator;
 import DataAccess.Models.Client;
-import DataAccess.Models.Company;
-import com.sun.corba.se.spi.protocol.CorbaClientDelegate;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class ClientService extends BaseService<Client> {
 
@@ -22,34 +16,34 @@ public class ClientService extends BaseService<Client> {
         super("./clients.txt");
     }
 
-    public void ShowClientsSortedByBankAccount(){
+    public void showClientsSortedByBankAccount(){
         if (this._entities == null)
-            LoadEntities();
+            loadEntities();
         this._entities.sort(new ClientByBankAccountComparator());
         for (Client client: _entities ) {
             System.out.println(client);
         }
     }
-    public void ShowClientsSortedByCompany(){
+    public void showClientsSortedByCompany(){
         if (this._entities == null)
-            LoadEntities();
+            loadEntities();
         this._entities.sort(new ClientByCompanyComparator());
         for (Client client: _entities ) {
             System.out.println(client);
         }
     }
-    public void ShowClientsSortedBySurname(){
+    public void showClientsSortedBySurname(){
         if (this._entities == null)
-            LoadEntities();
+            loadEntities();
         this._entities.sort(new ClientBySurnameComparator());
         for (Client client: _entities ) {
             System.out.println(client);
         }
     }
 
-    public void ShowClientsSortedById(){
+    public void showClientsSortedById(){
         if (this._entities == null)
-            LoadEntities();
+            loadEntities();
         this._entities.sort(new ClientByIdComparator());
         for (Client client: _entities ) {
             System.out.println(client);
@@ -57,9 +51,9 @@ public class ClientService extends BaseService<Client> {
     }
 
 
-    public Client GetEntityByID(int id){
+    public Client getEntityByID(int id){
         if (this._entities == null)
-            LoadEntities();
+            loadEntities();
         for (Client entity: this._entities) {
             if(entity.clientId == id){
                 return entity;

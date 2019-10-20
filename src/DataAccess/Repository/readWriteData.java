@@ -8,14 +8,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadWriteData<T> {
+public class readWriteData<T> {
     private String _fileName;
 
-    public ReadWriteData(String fileName){
+    public readWriteData(String fileName){
         _fileName = fileName;
     }
 
-    public void WriteArrayOfEntities(ArrayList<T> entities) {
+    public void writeArrayOfEntities(ArrayList<T> entities) {
 
         try{
             FileOutputStream outputStream = new FileOutputStream(_fileName);
@@ -29,7 +29,7 @@ public class ReadWriteData<T> {
         }
     }
 
-    public ArrayList<T> ReadArrayOfEntities() {
+    public ArrayList<T> readArrayOfEntities() {
         ArrayList<T> entities;
         try {
             FileInputStream inputStream = new FileInputStream(_fileName);

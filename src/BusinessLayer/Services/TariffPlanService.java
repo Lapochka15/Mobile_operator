@@ -16,23 +16,27 @@ public class TariffPlanService extends BaseService<TariffPlan> {
         this._fileName = "tariffPlan.txt";
     }
 
-    public void ShowTariffPlanSortedById(){
+    public void showTariffPlanSortedById(){
+        if (this._entities == null)
+            loadEntities();
         this._entities.sort(new TariffPlanByIdComparator());
         for (TariffPlan client: _entities ) {
             System.out.println(client);
         }
     }
 
-    public void ShowTariffPlanSortedBySubscriptionFree(){
+    public void showTariffPlanSortedBySubscriptionFree(){
+        if (this._entities == null)
+            loadEntities();
         this._entities.sort(new TariffPlanBySubscriptionFreeComparator());
         for (TariffPlan client: _entities ) {
             System.out.println(client);
         }
     }
 
-    public TariffPlan GetEntityByID(int id){
+    public TariffPlan getEntityByID(int id){
         if (this._entities == null)
-            LoadEntities();
+            loadEntities();
         for (TariffPlan entity: this._entities) {
             if(entity.id == id){
                 return entity;

@@ -28,7 +28,7 @@ public class TariffPlan implements Serializable {
     }
 
     public String toString(){
-        return String.format("%15s|%6f|%h|%f|%f", this.name, this.subscriptionFee, this.debit, this.smsPrice, this.callPrice);
+        return String.format("%3d|%15s|%s|%s|%f|%f", this.id, this.name, this.subscriptionFee, this.debit, this.smsPrice, this.callPrice);
     }
 
 }

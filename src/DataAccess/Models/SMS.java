@@ -19,6 +19,6 @@ public class SMS extends Service {
     }
 
     public String toString(){
-        return String.format("%6d|%6d|%d|%t", this.sourceClientId, this.destinationClientId, this.textSize, this.dateTime);
+        return String.format("%3d|%6d|%6d|%d|%tr",this.serviceId, this.sourceClientId, this.destinationClientId, this.textSize, this.dateTime);
     }
 }

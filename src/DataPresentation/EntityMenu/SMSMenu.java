@@ -1,9 +1,7 @@
 package DataPresentation.EntityMenu;
 
-import BusinessLayer.Models.Comparator.SMSComparator.SmsByTextSizeComparator;
 import BusinessLayer.Services.SMSService;
 import DataAccess.Models.SMS;
-import sun.util.resources.cldr.sah.CalendarData_sah_RU;
 
 import java.util.Scanner;
 
@@ -12,41 +10,41 @@ public class SMSMenu extends BaseMenu{
     private SMSService _smsService = new SMSService();
 
     @Override
-    public void Show() {
+    public void show() {
         int choice;
         do {
             Scanner in = new Scanner(System.in);
             System.out.println("----------Menu----------");
-            System.out.println("1. Show Client sorted by Date");
-            System.out.println("2. Show Client sorted by Id");
-            System.out.println("3. Show Client sorted by Source");
-            System.out.println("4. Show Client sorted by Text Size");
+            System.out.println("1. Show sms sorted by Date");
+            System.out.println("2. Show sms sorted by Id");
+            System.out.println("3. Show sms sorted by Source");
+            System.out.println("4. Show sms sorted by Text Size");
             System.out.println("Enter you choice");
             choice = in.nextInt();
         } while (choice > 4 || choice < 0 );
         switch (choice){
             case 1:
-                _smsService.ShowSmsSortedByDate();
+                _smsService.showSmsSortedByDate();
                 break;
             case 2:
-                _smsService.ShowSmsSortedById();
+                _smsService.showSmsSortedById();
                 break;
             case 3:
-                _smsService.ShowSmsSortedBySource();
+                _smsService.showSmsSortedBySource();
                 break;
             case 4:
-                _smsService.ShowSmsSortedByTextSize();
+                _smsService.showSmsSortedByTextSize();
                 break;
         }
         return;
     }
 
     @Override
-    public void Update() {
+    public void update() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter Id of Entity");
         int entityId = in.nextInt();
-        SMS resultEntity = _smsService.GetEntityByID(entityId);
+        SMS resultEntity = _smsService.getEntityByID(entityId);
         System.out.println(resultEntity);
         if (resultEntity == null) {
             System.out.println("Not found entity with "+ entityId + " Id");
@@ -67,22 +65,22 @@ public class SMSMenu extends BaseMenu{
     }
 
     @Override
-    public boolean Delete() {
+    public boolean delete() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter Id of Entity");
         int entityId = in.nextInt();
-        SMS resultEntity = _smsService.GetEntityByID(entityId);
+        SMS resultEntity = _smsService.getEntityByID(entityId);
         System.out.println(resultEntity);
         if (resultEntity == null) {
             System.out.println("Not found entity with "+ entityId + " Id");
             return false;
         }
-        _smsService.RemoveEntity(resultEntity);
+        _smsService.removeEntity(resultEntity);
         return true;
     }
 
     @Override
-    public void Add() {
+    public void add() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Enter Source :");
@@ -92,16 +90,16 @@ public class SMSMenu extends BaseMenu{
         System.out.println("Enter Size of sms :");
         int size = in.nextInt();
 
-        int lengthOfCollection = _smsService.GetAmountOfEntities();
-        SMS lastClient = _smsService.GetEntityByPosition(lengthOfCollection - 1 );
+        int lengthOfCollection = _smsService.getAmountOfEntities();
+        SMS lastSms = _smsService.getEntityByPosition(lengthOfCollection - 1 );
 
-        SMS client= new SMS(lastClient.serviceId, source,destination, size );
+        SMS sms= new SMS(lastSms == null? 0 : lastSms.serviceId + 1 , source, destination, size );
 
-        _smsService.AddEntity(client);
+        _smsService.addEntity(sms);
     }
 
     @Override
-    public void SaveChanges() {
-        _smsService.SaveEntities();
+    public void saveChanges() {
+        _smsService.saveEntities();
     }
 }

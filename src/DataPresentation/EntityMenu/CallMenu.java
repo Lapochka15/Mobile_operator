@@ -3,7 +3,6 @@ package DataPresentation.EntityMenu;
 import BusinessLayer.Services.CallService;
 import DataAccess.Models.Call;
 
-import java.io.IOException;
 import java.sql.Time;
 import java.util.Scanner;
 
@@ -12,7 +11,7 @@ public class CallMenu extends BaseMenu{
 
     private CallService _callService = new CallService();
     @Override
-    public void Show()  {
+    public void show()  {
         int choice;
         do {
             Scanner in = new Scanner(System.in);
@@ -26,27 +25,27 @@ public class CallMenu extends BaseMenu{
         } while (choice > 4 || choice < 0 );
         switch (choice){
             case 1:
-                _callService.ShowCallSortedById();
+                _callService.showCallSortedById();
                 break;
             case 2:
-                _callService.ShowCallSortedByDate();
+                _callService.showCallSortedByDate();
                 break;
             case 3:
-                _callService.ShowCallSortedBySource();
+                _callService.showCallSortedBySource();
                 break;
             case 4:
-                _callService.ShowCallSortedByDuration();
+                _callService.showCallSortedByDuration();
                 break;
         }
         return;
     }
 
     @Override
-    public void Update() {
+    public void update() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter Id of Entity");
         int entityId = in.nextInt();
-        Call resultEntity = _callService.GetEntityByID(entityId);
+        Call resultEntity = _callService.getEntityByID(entityId);
         System.out.println(resultEntity);
         if (resultEntity == null) {
             System.out.println("Not found entity with "+ entityId + " Id");
@@ -67,22 +66,22 @@ public class CallMenu extends BaseMenu{
     }
 
     @Override
-    public boolean Delete() {
+    public boolean delete() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter Id of Entity");
         int entityId = in.nextInt();
-        Call resultEntity = _callService.GetEntityByID(entityId);
+        Call resultEntity = _callService.getEntityByID(entityId);
         System.out.println(resultEntity);
         if (resultEntity == null) {
             System.out.println("Not found entity with "+ entityId + " Id");
             return false;
         }
-        _callService.RemoveEntity(resultEntity);
+        _callService.removeEntity(resultEntity);
         return true;
     }
 
     @Override
-    public void Add() {
+    public void add() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Enter source Id :");
@@ -92,19 +91,19 @@ public class CallMenu extends BaseMenu{
         System.out.println("Enter duration :");
         Time duration = new Time( in.nextLong());
 
-        int lengthOfCollection = _callService.GetAmountOfEntities();
-        Call lastCall = _callService.GetEntityByPosition(lengthOfCollection - 1 );
+        int lengthOfCollection = _callService.getAmountOfEntities();
+        Call lastCall = _callService.getEntityByPosition( lengthOfCollection - 1 );
 
 
-        Call call= new Call(source,destination, duration, lastCall.serviceId + 1);
+        Call call= new Call(source,destination, duration, lastCall == null? 0: lastCall.serviceId + 1);
 
-        _callService.AddEntity(call);
+        _callService.addEntity(call);
 
 
     }
 
     @Override
-    public void SaveChanges() {
-        _callService.SaveEntities();
+    public void saveChanges() {
+        _callService.saveEntities();
     }
 }

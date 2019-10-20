@@ -3,13 +3,12 @@ package DataPresentation.EntityMenu;
 import BusinessLayer.Services.ClientService;
 import DataAccess.Models.Client;
 
-import java.sql.Time;
 import java.util.Scanner;
 
 public class ClientMenu extends BaseMenu {
     private ClientService _clientService = new ClientService();
     @Override
-    public void Show() {
+    public void show() {
         int choice;
         do {
             Scanner in = new Scanner(System.in);
@@ -23,27 +22,27 @@ public class ClientMenu extends BaseMenu {
         } while (choice > 4 || choice < 0 );
         switch (choice){
             case 1:
-                _clientService.ShowClientsSortedBySurname();
+                _clientService.showClientsSortedBySurname();
                 break;
             case 2:
-                _clientService.ShowClientsSortedByBankAccount();
+                _clientService.showClientsSortedByBankAccount();
                 break;
             case 3:
-                _clientService.ShowClientsSortedByCompany();
+                _clientService.showClientsSortedByCompany();
                 break;
             case 4:
-                _clientService.ShowClientsSortedById();
+                _clientService.showClientsSortedById();
                 break;
         }
         return;
     }
 
     @Override
-    public void Update() {
+    public void update() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter Id of Entity");
         int entityId = in.nextInt();
-        Client resultEntity = _clientService.GetEntityByID(entityId);
+        Client resultEntity = _clientService.getEntityByID(entityId);
         System.out.println(resultEntity);
         if (resultEntity == null) {
             System.out.println("Not found entity with "+ entityId + " Id");
@@ -74,22 +73,22 @@ public class ClientMenu extends BaseMenu {
     }
 
     @Override
-    public boolean Delete() {
+    public boolean delete() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter Id of Entity");
         int entityId = in.nextInt();
-        Client resultEntity = _clientService.GetEntityByID(entityId);
+        Client resultEntity = _clientService.getEntityByID(entityId);
         System.out.println(resultEntity);
         if (resultEntity == null) {
             System.out.println("Not found entity with "+ entityId + " Id");
             return false;
         }
-        _clientService.RemoveEntity(resultEntity);
+        _clientService.removeEntity(resultEntity);
         return true;
     }
 
     @Override
-    public void Add() {
+    public void add() {
 
         Scanner in = new Scanner(System.in);
 
@@ -107,16 +106,16 @@ public class ClientMenu extends BaseMenu {
         System.out.println("Enter company Id:");
         int company = in.nextInt();
 
-        int lengthOfCollection = _clientService.GetAmountOfEntities();
-        Client lastClient = _clientService.GetEntityByPosition(lengthOfCollection - 1 );
+        int lengthOfCollection = _clientService.getAmountOfEntities();
+        Client lastClient = _clientService.getEntityByPosition( lengthOfCollection - 1 );
 
-        Client client= new Client(lastClient.clientId + 1, name, surname, bankAccount, tariff, company, true );
+        Client client= new Client(lastClient == null? 0 : lastClient.clientId + 1, name, surname, bankAccount, tariff, company, true );
 
-        _clientService.AddEntity(client);
+        _clientService.addEntity(client);
     }
 
     @Override
-    public void SaveChanges() {
-        _clientService.SaveEntities();
+    public void saveChanges() {
+        _clientService.saveEntities();
     }
 }

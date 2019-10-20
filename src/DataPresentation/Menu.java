@@ -54,23 +54,23 @@ public class Menu {
             int crudChoice = Menu.CRUDMenu();
             switch (crudChoice) {
                 case 1: {
-                    chosenEntityMenu.Show();
+                    chosenEntityMenu.show();
                     break;
                 }
                 case 2: {
-                    chosenEntityMenu.Add();
+                    chosenEntityMenu.add();
                     break;
                 }
                 case 3: {
-                    chosenEntityMenu.Delete();
+                    chosenEntityMenu.delete();
                     break;
                 }
                 case 4: {
-                    chosenEntityMenu.Update();
+                    chosenEntityMenu.update();
                     break;
                 }
                 case 5:{
-                    chosenEntityMenu.SaveChanges();
+                    chosenEntityMenu.saveChanges();
                     break;
                 }
                 case 6:{
