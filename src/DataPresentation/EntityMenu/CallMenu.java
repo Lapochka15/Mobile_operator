@@ -52,7 +52,6 @@ public class CallMenu extends BaseMenu{
             System.out.println("Not found entity with "+ entityId + " Id");
             return;
         }
-        _callService.RemoveEntity(resultEntity);
 
         System.out.println("Enter source Id :");
         int source = in.nextInt();
@@ -61,8 +60,9 @@ public class CallMenu extends BaseMenu{
         System.out.println("Enter duration :");
         Time duration = new Time( in.nextLong());
 
-        Call call= new Call(source,destination, duration, resultEntity.serviceId);
-        _callService.AddEntity(call);
+        resultEntity.duration =duration;
+        resultEntity.sourceClientId = source;
+        resultEntity.destinationClientId = destination;
 
     }
 

@@ -9,10 +9,11 @@ public class SMS extends Service {
 
     }
 
-    public SMS(int source, int destination, int textSize){
+    public SMS(int id, int source, int destination, int textSize){
         this.sourceClientId = source;
         this.textSize = textSize;
         this.destinationClientId = destination;
+        this.serviceId = id;
         this.dateTime = LocalDateTime.now();
 
     }

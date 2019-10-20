@@ -1,6 +1,7 @@
 package DataPresentation.EntityMenu;
 
 import BusinessLayer.Services.TariffPlanService;
+import DataAccess.Models.Debit;
 import DataAccess.Models.TariffPlan;
 
 import java.util.Scanner;
@@ -33,16 +34,68 @@ public class TariffPlanMenu extends BaseMenu {
     @Override
     public void Update() {
 
+
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter Id of Entity");
+        int entityId = in.nextInt();
+        TariffPlan resultEntity = _tariffPlan.GetEntityByID(entityId);
+        System.out.println(resultEntity);
+        if (resultEntity == null) {
+            System.out.println("Not found entity with "+ entityId + " Id");
+            return;
+        }
+        System.out.println("Enter Name :");
+        String name = in.next();
+
+        System.out.println("Enter Subscription Fee :");
+        double subscriptionFee = in.nextDouble();
+
+        System.out.println("Enter SMS price :");
+        double smsPrice = in.nextDouble();
+        System.out.println("Enter Call price :");
+        double callPrice = in.nextDouble();
+
+        resultEntity.subscriptionFee = subscriptionFee;
+        resultEntity.smsPrice = smsPrice;
+        resultEntity.callPrice = callPrice;
+        resultEntity.name = name;
     }
 
     @Override
     public boolean Delete() {
-        return false;
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter Id of Entity");
+        int entityId = in.nextInt();
+        TariffPlan resultEntity = _tariffPlan.GetEntityByID(entityId);
+        System.out.println(resultEntity);
+        if (resultEntity == null) {
+            System.out.println("Not found entity with "+ entityId + " Id");
+            return false;
+        }
+        _tariffPlan.RemoveEntity(resultEntity);
+        return true;
     }
 
     @Override
     public void Add() {
+        Scanner in = new Scanner(System.in);
 
+        System.out.println("Enter Name :");
+        String name = in.next();
+
+        System.out.println("Enter Subscription Fee :");
+        double subscriptionFee = in.nextDouble();
+
+        System.out.println("Enter SMS price :");
+        double smsPrice = in.nextDouble();
+        System.out.println("Enter Call price :");
+        double callPrice = in.nextDouble();
+
+        int lengthOfCollection = _tariffPlan.GetAmountOfEntities();
+        TariffPlan lastClient = _tariffPlan.GetEntityByPosition(lengthOfCollection - 1 );
+        TariffPlan client= new TariffPlan(lastClient.id, name, subscriptionFee,Debit.everyMonth , smsPrice, callPrice  );
+
+        _tariffPlan.AddEntity(client);
     }
 
     @Override

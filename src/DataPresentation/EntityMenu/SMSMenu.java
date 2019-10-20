@@ -1,6 +1,8 @@
 package DataPresentation.EntityMenu;
 
+import BusinessLayer.Models.Comparator.SMSComparator.SmsByTextSizeComparator;
 import BusinessLayer.Services.SMSService;
+import DataAccess.Models.SMS;
 import sun.util.resources.cldr.sah.CalendarData_sah_RU;
 
 import java.util.Scanner;
@@ -41,17 +43,61 @@ public class SMSMenu extends BaseMenu{
 
     @Override
     public void Update() {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter Id of Entity");
+        int entityId = in.nextInt();
+        SMS resultEntity = _smsService.GetEntityByID(entityId);
+        System.out.println(resultEntity);
+        if (resultEntity == null) {
+            System.out.println("Not found entity with "+ entityId + " Id");
+            return;
+        }
+
+        System.out.println("Enter Source :");
+        int source = in.nextInt();
+        System.out.println("Enter Destination :");
+        int destination = in.nextInt();
+        System.out.println("Enter Size of sms :");
+        int size = in.nextInt();
+
+        resultEntity.textSize =size;
+        resultEntity.destinationClientId = destination;
+        resultEntity.sourceClientId = source;
 
     }
 
     @Override
     public boolean Delete() {
-        return false;
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter Id of Entity");
+        int entityId = in.nextInt();
+        SMS resultEntity = _smsService.GetEntityByID(entityId);
+        System.out.println(resultEntity);
+        if (resultEntity == null) {
+            System.out.println("Not found entity with "+ entityId + " Id");
+            return false;
+        }
+        _smsService.RemoveEntity(resultEntity);
+        return true;
     }
 
     @Override
     public void Add() {
+        Scanner in = new Scanner(System.in);
 
+        System.out.println("Enter Source :");
+        int source = in.nextInt();
+        System.out.println("Enter Destination :");
+        int destination = in.nextInt();
+        System.out.println("Enter Size of sms :");
+        int size = in.nextInt();
+
+        int lengthOfCollection = _smsService.GetAmountOfEntities();
+        SMS lastClient = _smsService.GetEntityByPosition(lengthOfCollection - 1 );
+
+        SMS client= new SMS(lastClient.serviceId, source,destination, size );
+
+        _smsService.AddEntity(client);
     }
 
     @Override
