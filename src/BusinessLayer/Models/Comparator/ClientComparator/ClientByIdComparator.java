@@ -8,7 +8,7 @@ public class ClientByIdComparator implements Comparator<Client> {
     @Override
     public int compare(Client client1, Client client2){
 
-        return (client1.companyId - client2.companyId);
+        return (client1.clientId - client2.clientId);
     }
 }
 

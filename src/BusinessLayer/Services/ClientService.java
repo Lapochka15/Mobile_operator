@@ -23,18 +23,24 @@ public class ClientService extends BaseService<Client> {
     }
 
     public void ShowClientsSortedByBankAccount(){
+        if (this._entities == null)
+            LoadEntities();
         this._entities.sort(new ClientByBankAccountComparator());
         for (Client client: _entities ) {
             System.out.println(client);
         }
     }
     public void ShowClientsSortedByCompany(){
+        if (this._entities == null)
+            LoadEntities();
         this._entities.sort(new ClientByCompanyComparator());
         for (Client client: _entities ) {
             System.out.println(client);
         }
     }
     public void ShowClientsSortedBySurname(){
+        if (this._entities == null)
+            LoadEntities();
         this._entities.sort(new ClientBySurnameComparator());
         for (Client client: _entities ) {
             System.out.println(client);
@@ -42,6 +48,8 @@ public class ClientService extends BaseService<Client> {
     }
 
     public void ShowClientsSortedById(){
+        if (this._entities == null)
+            LoadEntities();
         this._entities.sort(new ClientByIdComparator());
         for (Client client: _entities ) {
             System.out.println(client);
