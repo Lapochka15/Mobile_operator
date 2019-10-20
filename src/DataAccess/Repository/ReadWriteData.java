@@ -15,13 +15,18 @@ public class ReadWriteData<T> {
         _fileName = fileName;
     }
 
-    public void WriteArrayOfEntities(ArrayList<T> entities) throws IOException {
+    public void WriteArrayOfEntities(ArrayList<T> entities) {
 
-        FileOutputStream outputStream = new FileOutputStream(_fileName);
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-        objectOutputStream.writeObject(entities);
-        objectOutputStream.flush();
-        objectOutputStream.close();
+        try{
+            FileOutputStream outputStream = new FileOutputStream(_fileName);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(entities);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch (Exception e){
+            System.out.println("Can not save entities" + e.getMessage());
+        }
     }
 
     public ArrayList<T> ReadArrayOfEntities() {

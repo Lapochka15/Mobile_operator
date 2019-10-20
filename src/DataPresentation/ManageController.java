@@ -20,21 +20,17 @@ public class ManageController {
     }
 
 
-    public void EntryPoint(){
-        BaseMenu chosenEntityMenu = Menu.ChooseEntity();
+    public void EntryPoint() {
+        while (true) {
+            BaseMenu chosenEntityMenu = Menu.ChooseEntity();
 
-        if (chosenEntityMenu == null)
-            return;
+            if (chosenEntityMenu == null)
+                return;
 
-        int crudChoice = Menu.CRUDMenu();
 
-        switch(crudChoice){
-            case 1: chosenEntityMenu.Show();
-            case 2: chosenEntityMenu.Add();
-            case 3: chosenEntityMenu.Delete();
-            case 4: chosenEntityMenu.Update();
+            Menu.ExecuteChosenAction(chosenEntityMenu);
+
         }
-
-
     }
+
 }

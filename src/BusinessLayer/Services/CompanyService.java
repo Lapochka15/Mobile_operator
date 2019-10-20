@@ -29,4 +29,14 @@ public class CompanyService extends BaseService<Company> {
             System.out.println(client);
         }
     }
+    public Company GetEntityByID(int id){
+        if (this._entities == null)
+            LoadEntities();
+        for (Company entity: this._entities) {
+            if(entity.companyId == id){
+                return entity;
+            }
+        }
+        return null;
+    }
 }

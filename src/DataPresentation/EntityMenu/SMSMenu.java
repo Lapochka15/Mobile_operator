@@ -1,6 +1,7 @@
 package DataPresentation.EntityMenu;
 
 import BusinessLayer.Services.SMSService;
+import sun.util.resources.cldr.sah.CalendarData_sah_RU;
 
 import java.util.Scanner;
 
@@ -44,12 +45,17 @@ public class SMSMenu extends BaseMenu{
     }
 
     @Override
-    public void Delete() {
-
+    public boolean Delete() {
+        return false;
     }
 
     @Override
     public void Add() {
 
+    }
+
+    @Override
+    public void SaveChanges() {
+        _smsService.SaveEntities();
     }
 }

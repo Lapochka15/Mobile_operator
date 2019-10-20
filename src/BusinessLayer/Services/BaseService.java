@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class BaseService<T> {
 
     private ReadWriteData _readWriteData;
-    public ArrayList<T> _entities;
+    protected ArrayList<T> _entities;
 
     public BaseService(String filePath){
         _readWriteData = new ReadWriteData<T>(filePath);
@@ -18,7 +18,7 @@ public abstract class BaseService<T> {
         _entities = (ArrayList<T>)_readWriteData.ReadArrayOfEntities();
     }
 
-    public T GetEntity(int position) {
+    public T GetEntityByPosition(int position) {
         if (_entities == null)
             LoadEntities();
         if (position < _entities.size())
@@ -26,6 +26,11 @@ public abstract class BaseService<T> {
         return null;
     }
 
+    public int GetAmountOfEntities(){
+        if (_entities == null)
+            LoadEntities();
+        return _entities.size();
+    }
     
     public void ShowAll() {
         if (_entities == null)
@@ -63,13 +68,13 @@ public abstract class BaseService<T> {
         }
     }
 
-    public void UpdateEntity(T entityNew, int position)  {
+    public void UpdateEntityByPosition(T entityNew, int position)  {
         if (_entities == null)
             LoadEntities();
         this._entities.set(position, entityNew);
     }
 
-    public void SaveEntities() throws IOException {
+    public void SaveEntities()  {
         if(_entities != null)
             _readWriteData.WriteArrayOfEntities(_entities);
     }

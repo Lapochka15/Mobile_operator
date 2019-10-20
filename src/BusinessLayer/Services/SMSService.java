@@ -45,4 +45,15 @@ public class SMSService extends BaseService<SMS> {
             System.out.println(client);
         }
     }
+
+    public SMS GetEntityByID(int id){
+        if (this._entities == null)
+            LoadEntities();
+        for (SMS entity: this._entities) {
+            if(entity.serviceId == id){
+                return entity;
+            }
+        }
+        return null;
+    }
 }

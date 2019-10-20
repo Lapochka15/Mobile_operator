@@ -5,6 +5,8 @@ import BusinessLayer.Models.Comparator.ClientComparator.ClientByCompanyComparato
 import BusinessLayer.Models.Comparator.ClientComparator.ClientByIdComparator;
 import BusinessLayer.Models.Comparator.ClientComparator.ClientBySurnameComparator;
 import DataAccess.Models.Client;
+import DataAccess.Models.Company;
+import com.sun.corba.se.spi.protocol.CorbaClientDelegate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,5 +46,17 @@ public class ClientService extends BaseService<Client> {
         for (Client client: _entities ) {
             System.out.println(client);
         }
+    }
+
+
+    public Client GetEntityByID(int id){
+        if (this._entities == null)
+            LoadEntities();
+        for (Client entity: this._entities) {
+            if(entity.clientId == id){
+                return entity;
+            }
+        }
+        return null;
     }
 }

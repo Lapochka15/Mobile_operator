@@ -8,17 +8,18 @@ public class Menu {
 
     public static int CRUDMenu(){
         int choice;
+        Scanner in = new Scanner(System.in);
         do {
-            Scanner in = new Scanner(System.in);
             System.out.println("----------Menu----------");
             System.out.println("1. Show Entities");
             System.out.println("2. Add Entities");
             System.out.println("3. Delete Entity");
             System.out.println("4. Update Entity");
-            System.out.println("5. To entity menu");
+            System.out.println("5. Save changes");
+            System.out.println("6. To entity menu");
             System.out.println("Enter you choice");
             choice = in.nextInt();
-        } while (choice > 5 || choice < 0 );
+        } while (choice > 6 || choice < 0 );
         return choice;
     }
 
@@ -46,5 +47,37 @@ public class Menu {
             case 5: return new CallMenu();
         }
         return null;
+    }
+
+    public  static void ExecuteChosenAction(BaseMenu chosenEntityMenu){
+        while (true) {
+            int crudChoice = Menu.CRUDMenu();
+            switch (crudChoice) {
+                case 1: {
+                    chosenEntityMenu.Show();
+                    break;
+                }
+                case 2: {
+                    chosenEntityMenu.Add();
+                    break;
+                }
+                case 3: {
+                    chosenEntityMenu.Delete();
+                    break;
+                }
+                case 4: {
+                    chosenEntityMenu.Update();
+                    break;
+                }
+                case 5:{
+                    chosenEntityMenu.SaveChanges();
+                    break;
+                }
+                case 6:{
+                    return;
+                }
+            }
+        }
+
     }
 }

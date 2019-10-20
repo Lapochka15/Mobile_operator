@@ -56,5 +56,16 @@ public class CallService extends BaseService<Call> {
             System.out.println(call);
         }
     }
+
+    public Call GetEntityByID(int id){
+        if (this._entities == null)
+            LoadEntities();
+        for (Call call: _entities) {
+            if(call.serviceId == id){
+                return call;
+            }
+        }
+        return null;
+    }
 }
 

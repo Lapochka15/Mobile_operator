@@ -29,4 +29,15 @@ public class TariffPlanService extends BaseService<TariffPlan> {
             System.out.println(client);
         }
     }
+
+    public TariffPlan GetEntityByID(int id){
+        if (this._entities == null)
+            LoadEntities();
+        for (TariffPlan entity: this._entities) {
+            if(entity.id == id){
+                return entity;
+            }
+        }
+        return null;
+    }
 }

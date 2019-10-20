@@ -42,12 +42,17 @@ public class ClientMenu extends BaseMenu {
     }
 
     @Override
-    public void Delete() {
-
+    public boolean Delete() {
+        return false;
     }
 
     @Override
     public void Add() {
 
+    }
+
+    @Override
+    public void SaveChanges() {
+        _clientService.SaveEntities();
     }
 }
