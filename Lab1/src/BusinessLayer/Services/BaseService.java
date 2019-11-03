@@ -1,16 +1,16 @@
 package BusinessLayer.Services;
 
-import DataAccess.Repository.readWriteData;
+import DataAccess.Repository.ReadWriteData;
 
 import java.util.ArrayList;
 
 public abstract class BaseService<T> {
 
-    private readWriteData _readWriteData;
+    private ReadWriteData _readWriteData;
     protected ArrayList<T> _entities;
 
     public BaseService(String filePath){
-        _readWriteData = new readWriteData<T>(filePath);
+        _readWriteData = new ReadWriteData<T>(filePath);
     }
 
     protected void loadEntities(){

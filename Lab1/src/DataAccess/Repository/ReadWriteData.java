@@ -8,10 +8,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class readWriteData<T> {
+public class ReadWriteData<T> {
     private String _fileName;
 
-    public readWriteData(String fileName){
+    public ReadWriteData(String fileName){
         _fileName = fileName;
     }
 
