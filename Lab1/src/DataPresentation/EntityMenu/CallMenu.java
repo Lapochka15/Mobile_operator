@@ -59,10 +59,9 @@ public class CallMenu extends BaseMenu{
         System.out.println("Enter duration :");
         Time duration = new Time( in.nextLong());
 
-        resultEntity.duration =duration;
-        resultEntity.sourceClientId = source;
-        resultEntity.destinationClientId = destination;
-
+        resultEntity.setDuration(duration);
+        resultEntity.setSourceClientId(source);
+        resultEntity.setDestinationClientId(destination);
     }
 
     @Override
@@ -95,7 +94,7 @@ public class CallMenu extends BaseMenu{
         Call lastCall = _callService.getEntityByPosition( lengthOfCollection - 1 );
 
 
-        Call call= new Call(source,destination, duration, lastCall == null? 0: lastCall.serviceId + 1);
+        Call call= new Call(source,destination, duration, lastCall == null? 0: lastCall.getServiceId() + 1);
 
         _callService.addEntity(call);
 

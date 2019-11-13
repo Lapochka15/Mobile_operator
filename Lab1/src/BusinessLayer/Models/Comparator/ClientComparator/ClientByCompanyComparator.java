@@ -7,7 +7,7 @@ import java.util.Comparator;
 public class ClientByCompanyComparator implements Comparator<Client> {
     @Override
     public int compare(Client client1, Client client2){
-        return client1.companyId - client2.companyId;
+        return client1.getCompanyId() - client2.getCompanyId();
     }
 }
 

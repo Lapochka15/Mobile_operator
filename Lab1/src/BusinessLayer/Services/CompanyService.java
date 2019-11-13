@@ -37,7 +37,7 @@ public class CompanyService extends BaseService<Company> {
         if (this._entities == null)
             loadEntities();
         for (Company entity: this._entities) {
-            if(entity.companyId == id){
+            if(entity.getCompanyId() == id){
                 return entity;
             }
         }

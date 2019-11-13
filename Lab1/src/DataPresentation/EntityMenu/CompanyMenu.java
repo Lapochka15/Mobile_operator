@@ -46,8 +46,8 @@ public class CompanyMenu extends BaseMenu{
         System.out.println("Enter discount:");
         double discount = in.nextDouble();
 
-        resultEntity.name = name;
-        resultEntity.discount = discount;
+        resultEntity.setName(name);
+        resultEntity.setDiscount(discount);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class CompanyMenu extends BaseMenu{
         int lengthOfCollection = _companyService.getAmountOfEntities();
         Company lastCompany = _companyService.getEntityByPosition(lengthOfCollection - 1 );
 
-        Company company= new Company(lastCompany == null? 0: lastCompany.companyId + 1, name, discount);
+        Company company= new Company(lastCompany == null? 0: lastCompany.getCompanyId() + 1, name, discount);
 
         _companyService.addEntity(company);
     }

@@ -58,7 +58,7 @@ public class SMSService extends BaseService<SMS> {
         if (this._entities == null)
             loadEntities();
         for (SMS entity: this._entities) {
-            if(entity.serviceId == id){
+            if(entity.getServiceId() == id){
                 return entity;
             }
         }

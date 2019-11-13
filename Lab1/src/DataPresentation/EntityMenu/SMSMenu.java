@@ -58,9 +58,9 @@ public class SMSMenu extends BaseMenu{
         System.out.println("Enter Size of sms :");
         int size = in.nextInt();
 
-        resultEntity.textSize =size;
-        resultEntity.destinationClientId = destination;
-        resultEntity.sourceClientId = source;
+        resultEntity.setTextSize(size);
+        resultEntity.setDestinationClientId(destination);
+        resultEntity.setSourceClientId(source);
 
     }
 
@@ -93,7 +93,7 @@ public class SMSMenu extends BaseMenu{
         int lengthOfCollection = _smsService.getAmountOfEntities();
         SMS lastSms = _smsService.getEntityByPosition(lengthOfCollection - 1 );
 
-        SMS sms= new SMS(lastSms == null? 0 : lastSms.serviceId + 1 , source, destination, size );
+        SMS sms= new SMS(lastSms == null? 0 : lastSms.getServiceId() + 1 , source, destination, size );
 
         _smsService.addEntity(sms);
     }

@@ -7,6 +7,6 @@ import java.util.Comparator;
 public class ServiceByDateTimeComparator implements Comparator<Service> {
         @Override
         public int compare(Service service1, Service service2){
-                return service1.dateTime.compareTo(service2.dateTime);
+                return service1.getDateTime().compareTo(service2.getDateTime());
         }
 }

@@ -3,7 +3,15 @@ package DataAccess.Models;
 import java.time.LocalDateTime;
 
 public class SMS extends Service {
-    public int textSize;
+    private int textSize;
+
+    public int getTextSize() {
+        return textSize;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
+    }
 
     public SMS(){
 

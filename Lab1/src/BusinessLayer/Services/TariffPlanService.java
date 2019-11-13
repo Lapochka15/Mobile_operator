@@ -38,7 +38,7 @@ public class TariffPlanService extends BaseService<TariffPlan> {
         if (this._entities == null)
             loadEntities();
         for (TariffPlan entity: this._entities) {
-            if(entity.id == id){
+            if(entity.getId() == id){
                 return entity;
             }
         }

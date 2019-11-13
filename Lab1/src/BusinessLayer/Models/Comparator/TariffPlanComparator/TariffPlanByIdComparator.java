@@ -7,6 +7,6 @@ import java.util.Comparator;
 public class TariffPlanByIdComparator implements Comparator<TariffPlan> {
     @Override
     public int compare(TariffPlan tariffPlan1, TariffPlan tariffPlan2){
-        return tariffPlan1.id - tariffPlan2.id;
+        return tariffPlan1.getId() - tariffPlan2.getId();
     }
 }

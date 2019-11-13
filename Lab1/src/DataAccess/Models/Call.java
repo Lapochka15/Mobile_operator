@@ -6,7 +6,15 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 
 public class Call extends Service {
-    public Time duration;
+    private Time duration;
+
+    public Time getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Time duration) {
+        this.duration = duration;
+    }
 
     public Call(int source, int destination, Time duration){
         this.sourceClientId = source;

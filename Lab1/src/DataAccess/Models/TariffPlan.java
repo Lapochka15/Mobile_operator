@@ -5,14 +5,62 @@ import jdk.internal.org.objectweb.asm.util.TraceAnnotationVisitor;
 import java.io.Serializable;
 
 public class TariffPlan implements Serializable {
-    public int id;
+    private int id;
 
-    public String name;
-    public Double subscriptionFee;
-    public Debit debit;
+    private String name;
+    private Double subscriptionFee;
+    private Debit debit;
 
-    public Double smsPrice;
-    public Double callPrice;
+    private Double smsPrice;
+    private Double callPrice;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getSubscriptionFee() {
+        return subscriptionFee;
+    }
+
+    public void setSubscriptionFee(Double subscriptionFee) {
+        this.subscriptionFee = subscriptionFee;
+    }
+
+    public Debit getDebit() {
+        return debit;
+    }
+
+    public void setDebit(Debit debit) {
+        this.debit = debit;
+    }
+
+    public Double getSmsPrice() {
+        return smsPrice;
+    }
+
+    public void setSmsPrice(Double smsPrice) {
+        this.smsPrice = smsPrice;
+    }
+
+    public Double getCallPrice() {
+        return callPrice;
+    }
+
+    public void setCallPrice(Double callPrice) {
+        this.callPrice = callPrice;
+    }
 
     public TariffPlan(){
 

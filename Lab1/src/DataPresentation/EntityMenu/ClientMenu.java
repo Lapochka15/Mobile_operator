@@ -63,11 +63,11 @@ public class ClientMenu extends BaseMenu {
         System.out.println("Enter company Id:");
         int company = in.nextInt();
 
-        resultEntity.companyId = company;
-        resultEntity.name = name;
-        resultEntity.bankAccount = bankAccount;
-        resultEntity.surname = surname;
-        resultEntity.tariffPlanId = tariff;
+        resultEntity.setClientId(company);
+        resultEntity.setName(name);
+        resultEntity.setBankAccount(bankAccount);
+        resultEntity.setSurname(surname);
+        resultEntity.setTariffPlanId(tariff);
 
 
     }
@@ -109,7 +109,7 @@ public class ClientMenu extends BaseMenu {
         int lengthOfCollection = _clientService.getAmountOfEntities();
         Client lastClient = _clientService.getEntityByPosition( lengthOfCollection - 1 );
 
-        Client client= new Client(lastClient == null? 0 : lastClient.clientId + 1, name, surname, bankAccount, tariff, company, true );
+        Client client= new Client(lastClient == null? 0 : lastClient.getClientId() + 1, name, surname, bankAccount, tariff, company, true );
 
         _clientService.addEntity(client);
     }

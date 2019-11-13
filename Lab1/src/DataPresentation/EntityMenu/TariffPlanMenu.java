@@ -55,10 +55,10 @@ public class TariffPlanMenu extends BaseMenu {
         System.out.println("Enter Call price :");
         double callPrice = in.nextDouble();
 
-        resultEntity.subscriptionFee = subscriptionFee;
-        resultEntity.smsPrice = smsPrice;
-        resultEntity.callPrice = callPrice;
-        resultEntity.name = name;
+        resultEntity.setSubscriptionFee(subscriptionFee);
+        resultEntity.setSmsPrice(smsPrice);
+        resultEntity.setCallPrice(callPrice);
+        resultEntity.setName(name);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class TariffPlanMenu extends BaseMenu {
 
         int lengthOfCollection = _tariffPlan.getAmountOfEntities();
         TariffPlan lastTariffPlan = _tariffPlan.getEntityByPosition(lengthOfCollection - 1 );
-        TariffPlan tariffPlan= new TariffPlan(lastTariffPlan == null? 0: lastTariffPlan.id + 1, name, subscriptionFee,Debit.everyMonth , smsPrice, callPrice  );
+        TariffPlan tariffPlan= new TariffPlan(lastTariffPlan == null? 0: lastTariffPlan.getId() + 1, name, subscriptionFee,Debit.everyMonth , smsPrice, callPrice  );
 
         _tariffPlan.addEntity(tariffPlan);
     }

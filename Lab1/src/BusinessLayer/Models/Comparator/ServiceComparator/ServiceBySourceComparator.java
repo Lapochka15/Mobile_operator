@@ -7,6 +7,6 @@ import java.util.Comparator;
 public class ServiceBySourceComparator implements Comparator<Service> {
     @Override
     public int compare(Service service1, Service service2){
-        return service1.sourceClientId - service2.sourceClientId;
+        return service1.getSourceClientId() - service2.getSourceClientId();
     }
 }

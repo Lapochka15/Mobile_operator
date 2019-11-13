@@ -55,7 +55,7 @@ public class ClientService extends BaseService<Client> {
         if (this._entities == null)
             loadEntities();
         for (Client entity: this._entities) {
-            if(entity.clientId == id){
+            if(entity.getClientId() == id){
                 return entity;
             }
         }

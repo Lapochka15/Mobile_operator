@@ -59,7 +59,7 @@ public class CallService extends BaseService<Call> {
         if (this._entities == null)
             loadEntities();
         for (Call call: _entities) {
-            if(call.serviceId == id){
+            if(call.getServiceId() == id){
                 return call;
             }
         }
