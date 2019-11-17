@@ -1,13 +1,19 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public abstract class Service implements Serializable {
     protected int serviceId;
     protected int sourceClientId;
     protected int destinationClientId;
-    protected LocalDateTime dateTime;
+
+    @JsonFormat( pattern = "yyyy-MM-dd HH:mm")
+    protected Date dateTime;
 
     public int getServiceId() {
         return serviceId;
@@ -33,11 +39,13 @@ public abstract class Service implements Serializable {
         this.destinationClientId = destinationClientId;
     }
 
-    public LocalDateTime getDateTime() {
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale = "hu", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "CET")
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 }

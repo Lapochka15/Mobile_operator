@@ -1,14 +1,16 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @JacksonXmlRootElement(localName = "call")
 public class Call extends Service {
 
-
+    @JsonFormat(pattern = "hh:mm:ss")
     private Time duration;
 
     public Time getDuration() {
@@ -23,15 +25,15 @@ public class Call extends Service {
         this.sourceClientId = source;
         this.destinationClientId = destination;
         this.duration = duration;
-        this.dateTime = LocalDateTime.now();
+        this.dateTime = new Date();
     }
 
     public Call(int source, int destination, Time duration, int id){
         this.sourceClientId = source;
         this.destinationClientId = destination;
         this.duration = duration;
-        this.dateTime = LocalDateTime.now();
         this.serviceId = id;
+        this.dateTime = new Date();
     }
 
     public Call(){
