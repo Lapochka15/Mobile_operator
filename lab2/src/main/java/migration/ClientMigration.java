@@ -1,6 +1,9 @@
 package migration;
 
+import exceptions.DatabaseException;
 import models.Client;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,6 +13,9 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClientMigration {
+
+    private static final Logger logger = LogManager.getLogger(ClientMigration.class);
+
     private static final String TABLE = "Client";
     private static final String SELECT_QUERY = "SELECT * FROM " + TABLE + " WHERE id = ";
     private static final String INSERT_QUERY = "INSERT INTO " + TABLE
@@ -30,16 +36,15 @@ public class ClientMigration {
                 saveClient(client);
                 counter.getAndIncrement();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
-                //logger.debug(e);
+                counter.getAndDecrement();
+                logger.debug(e);
             }
         }
-        //logger.debug("Total bets: " + bets.size() + ", successful migrated: " + counter);
-        System.out.println(counter + " bets migrated");
+        System.out.println(counter + " clients migrated");
         return counter.get();
     }
 
-    private void saveClient(Client client){
+    private void saveClient(Client client) throws DatabaseException {
         ResultSet resultSet = null;
         try {
             Statement stmt = dbConnection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -48,7 +53,7 @@ public class ClientMigration {
             resultSet = stmt.executeQuery(selectQuery);
 
             if (resultSet.next()) {
-                System.out.println("Record Bet with id " + client.getClientId() + " already exists id database");
+                System.out.println("Record Client with id " + client.getClientId() + " already exists id database");
             }
 
             Statement stmtInsert = dbConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -66,14 +71,14 @@ public class ClientMigration {
             resultSet = stmt.executeQuery(insertQuery);
 
         } catch (SQLException e) {
-            //logger.error(e);
-            //throw new DatabaseException(e.getMessage());
+            logger.error(e);
+            throw new DatabaseException(e.getMessage());
         } finally {
             try {
                 if (resultSet != null)
                     resultSet.close();
             } catch (SQLException e) {
-                //logger.error(e);
+                logger.error(e);
             }
 
         }

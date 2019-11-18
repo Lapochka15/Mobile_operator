@@ -1,6 +1,9 @@
 package migration;
 
+import exceptions.DatabaseException;
 import models.Company;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,6 +13,8 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CompanyMigration {
+
+    private static final Logger logger = LogManager.getLogger(CompanyMigration.class);
 
     private static final String TABLE = "Company";
     private static final String SELECT_QUERY = "SELECT * FROM " + TABLE + " WHERE Id = ";
@@ -30,15 +35,16 @@ public class CompanyMigration {
                 counter.getAndIncrement();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                //logger.debug(e);
+                counter.getAndDecrement();
+                logger.debug(e);
             }
         }
-        //logger.debug("Total bets: " + bets.size() + ", successful migrated: " + counter);
-        System.out.println(counter + " bets migrated");
+
+        System.out.println(counter + " company migrated");
         return counter.get();
     }
 
-    private void saveCompany(Company company) {
+    private void saveCompany(Company company) throws DatabaseException {
         ResultSet resultSet = null;
         try {
             Statement stmt = dbConnection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -47,7 +53,7 @@ public class CompanyMigration {
             resultSet = stmt.executeQuery(selectQuery);
 
             if (resultSet.next()) {
-                System.out.println("Record Bet with id " + company.getCompanyId() + " already exists id database");
+                System.out.println("Record Company with id " + company.getCompanyId() + " already exists id database");
             }
 
             Statement stmtInsert = dbConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -62,14 +68,14 @@ public class CompanyMigration {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //logger.error(e);
-            //throw new DatabaseException(e.getMessage());
+            logger.error(e);
+            throw new DatabaseException(e.getMessage());
         } finally {
             try {
                 if (resultSet != null)
                     resultSet.close();
             } catch (SQLException e) {
-                //logger.error(e);
+                logger.error(e);
             }
 
         }

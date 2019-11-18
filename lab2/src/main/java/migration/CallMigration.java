@@ -1,8 +1,11 @@
 package migration;
 
 
+import exceptions.DatabaseException;
 import models.Call;
 import models.Company;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +16,9 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CallMigration {
+
+    private static final Logger logger = LogManager.getLogger(CallMigration.class);
+
     private static final String TABLE = "Calling";
     private static final String SELECT_QUERY = "SELECT * FROM " + TABLE + " WHERE Id = ";
     private static final String INSERT_QUERY = "INSERT INTO " + TABLE
@@ -31,16 +37,15 @@ public class CallMigration {
                 saveCompany(call);
                 counter.getAndIncrement();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
-                //logger.debug(e);
+                logger.debug(e);
             }
         }
-        //logger.debug("Total bets: " + bets.size() + ", successful migrated: " + counter);
-        System.out.println(counter + " bets migrated");
+
+        System.out.println(counter + " callings migrated");
         return counter.get();
     }
 
-    private void saveCompany(Call call) {
+    private void saveCompany(Call call) throws DatabaseException {
         ResultSet resultSet = null;
         try {
             Statement stmt = dbConnection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -49,7 +54,7 @@ public class CallMigration {
             resultSet = stmt.executeQuery(selectQuery);
 
             if (resultSet.next()) {
-                System.out.println("Record Bet with id " + call.getServiceId() + " already exists id database");
+                System.out.println("Record call with id " + call.getServiceId() + " already exists id database");
             }
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Statement stmtInsert = dbConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -66,14 +71,14 @@ public class CallMigration {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            //logger.error(e);
-            //throw new DatabaseException(e.getMessage());
+            logger.error(e);
+            throw new DatabaseException(e.getMessage());
         } finally {
             try {
                 if (resultSet != null)
                     resultSet.close();
             } catch (SQLException e) {
-                //logger.error(e);
+                logger.error(e);
             }
 
         }

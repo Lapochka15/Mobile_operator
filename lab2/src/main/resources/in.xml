@@ -30,24 +30,10 @@
    </Clients>
    <Calls>
       <Call>
-         <serviceId>1</serviceId>
+         <serviceId>2</serviceId>
          <sourceClientId>1</sourceClientId>
          <destinationClientId>2</destinationClientId>
-         <dateTime>2019-11-14 22:23</dateTime>
-         <duration>03:00:00</duration>
-      </Call>
-      <Call>
-         <serviceId>1</serviceId>
-         <sourceClientId>1</sourceClientId>
-         <destinationClientId>2</destinationClientId>
-         <dateTime>2019-11-14 22:23</dateTime>
-         <duration>03:00:00</duration>
-      </Call>
-      <Call>
-         <serviceId>1</serviceId>
-         <sourceClientId>1</sourceClientId>
-         <destinationClientId>2</destinationClientId>
-         <dateTime>2019-11-14 22:23</dateTime>
+         <dateTime>2019-11-14 22:23:00</dateTime>
          <duration>03:00:00</duration>
       </Call>
    </Calls>
@@ -79,25 +65,11 @@
    </TariffPlans>
    <SMSes>
       <SMS>
-         <serviceId>1</serviceId>
+         <serviceId>4</serviceId>
          <sourceClientId>1</sourceClientId>
          <destinationClientId>2</destinationClientId>
-         <dateTime>2019-11-14 22:23</dateTime>
+         <dateTime>2019-11-14 22:23:00</dateTime>
          <textSize>123</textSize>
-      </SMS>
-      <SMS>
-         <serviceId>2</serviceId>
-         <sourceClientId>2</sourceClientId>
-         <destinationClientId>1</destinationClientId>
-         <dateTime>2019-11-14 22:23</dateTime>
-         <textSize>143</textSize>
-      </SMS>
-      <SMS>
-         <serviceId>3</serviceId>
-         <sourceClientId>1</sourceClientId>
-         <destinationClientId>2</destinationClientId>
-         <dateTime>2019-11-14 22:23</dateTime>
-         <textSize>153</textSize>
       </SMS>
    </SMSes>
    <Companies>

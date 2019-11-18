@@ -12,7 +12,7 @@ public abstract class Service implements Serializable {
     protected int sourceClientId;
     protected int destinationClientId;
 
-    @JsonFormat( pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat( pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date dateTime;
 
     public int getServiceId() {

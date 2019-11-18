@@ -1,15 +1,18 @@
 package migration;
 
 import com.sun.tools.javac.Main;
+import exceptions.DatabaseException;
 import models.TariffPlan;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 public class TariffPlanMigration {
+
+    private static final Logger logger = LogManager.getLogger(TariffPlanMigration.class);
     private static final String TABLE = "TariffPlan";
     private static final String SELECT_QUERY = "SELECT * FROM " + TABLE + " WHERE id = ";
     private static final String INSERT_QUERY = "INSERT INTO " + TABLE
@@ -34,12 +37,12 @@ public class TariffPlanMigration {
                 //logger.debug(e);
             }
         }
-        //logger.debug("Total bets: " + bets.size() + ", successful migrated: " + counter);
-        System.out.println(counter + " bets migrated");
+
+        System.out.println(counter + " tariff plans migrated");
         return counter.get();
     }
 
-    private void saveTariffPlan(TariffPlan tariffPlan){
+    private void saveTariffPlan(TariffPlan tariffPlan) throws DatabaseException {
         ResultSet resultSet = null;
         try {
             Statement stmt = dbConnection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -48,7 +51,7 @@ public class TariffPlanMigration {
             resultSet = stmt.executeQuery(selectQuery);
 
             if (resultSet.next()) {
-                System.out.println("Record Bet with id " + tariffPlan.getId() + " already exists id database");
+                System.out.println("Record Tariff Plan with id " + tariffPlan.getId() + " already exists id database");
             }
 
             Statement stmtInsert = dbConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -64,14 +67,14 @@ public class TariffPlanMigration {
 
             resultSet = stmt.executeQuery(insertQuery);
         } catch (SQLException e) {
-            //logger.error(e);
-            //throw new DatabaseException(e.getMessage());
+            logger.error(e);
+            throw new DatabaseException(e.getMessage());
         } finally {
             try {
                 if (resultSet != null)
                     resultSet.close();
             } catch (SQLException e) {
-                //logger.error(e);
+                logger.error(e);
             }
 
         }
