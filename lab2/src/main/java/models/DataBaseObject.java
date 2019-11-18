@@ -3,6 +3,7 @@ package models;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+import java.sql.Array;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,61 +11,61 @@ import java.util.List;
 public class DataBaseObject {
     @JacksonXmlElementWrapper(localName = "Clients")
     @JacksonXmlProperty(localName = "Client")
-    private List<Client> clients;
+    private ArrayList<Client> clients;
 
     @JacksonXmlElementWrapper(localName = "Calls")
     @JacksonXmlProperty(localName = "Call")
-    private List<Call> calls;
+    private ArrayList<Call> calls;
 
     @JacksonXmlElementWrapper(localName = "TariffPlans")
     @JacksonXmlProperty(localName = "TariffPlan")
-    private List<TariffPlan> tariffPlans;
+    private ArrayList<TariffPlan> tariffPlans;
 
     @JacksonXmlElementWrapper(localName = "SMSes")
     @JacksonXmlProperty(localName = "SMS")
-    private List<SMS> smsList;
+    private ArrayList<SMS> smsList;
 
     @JacksonXmlElementWrapper(localName = "Companies")
     @JacksonXmlProperty(localName = "Company")
-    private List<Company> companies;
+    private ArrayList<Company> companies;
 
-    public List<Client> getClients() {
+    public ArrayList<Client> getClients() {
         return clients;
     }
 
-    public void setClients(List<Client> clients) {
+    public void setClients(ArrayList<Client> clients) {
         this.clients = clients;
     }
 
-    public List<Call> getCalls() {
+    public ArrayList<Call> getCalls() {
         return calls;
     }
 
-    public void setCalls(List<Call> calls) {
+    public void setCalls(ArrayList<Call> calls) {
         this.calls = calls;
     }
 
-    public List<TariffPlan> getTariffPlans() {
+    public ArrayList<TariffPlan> getTariffPlans() {
         return tariffPlans;
     }
 
-    public void setTariffPlans(List<TariffPlan> tariffPlans) {
+    public void setTariffPlans(ArrayList<TariffPlan> tariffPlans) {
         this.tariffPlans = tariffPlans;
     }
 
-    public List<SMS> getSmsList() {
+    public ArrayList<SMS> getSmsList() {
         return smsList;
     }
 
-    public void setSmsList(List<SMS> smsList) {
+    public void setSmsList(ArrayList<SMS> smsList) {
         this.smsList = smsList;
     }
 
-    public List<Company> getCompanies() {
+    public ArrayList<Company> getCompanies() {
         return companies;
     }
 
-    public void setCompanies(List<Company> companies) {
+    public void setCompanies(ArrayList<Company> companies) {
         this.companies = companies;
     }
 
