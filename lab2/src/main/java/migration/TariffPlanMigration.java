@@ -13,7 +13,7 @@ public class TariffPlanMigration {
     private static final String TABLE = "TariffPlan";
     private static final String SELECT_QUERY = "SELECT * FROM " + TABLE + " WHERE id = ";
     private static final String INSERT_QUERY = "INSERT INTO " + TABLE
-            + " (id, name, subscriptionFee, debit, smsPrice, callPrice) VALUES ";
+            + " (Id, Name, SubscriptionFee, Debit, SmsPrice, CallPrice) VALUES ";
     // (moreid, ...)
 
 
@@ -53,7 +53,7 @@ public class TariffPlanMigration {
 
             Statement stmtInsert = dbConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
-            // (id, name, subscriptionFee, debit, smsPrice, callPrice) VALUES
+            // (Id, Name, SubscriptionFee, Debit, SmsPrice, CallPrice) VALUES
             String insertQuery = INSERT_QUERY + '(' +
                     tariffPlan.getId() + ",'" +
                     tariffPlan.getName()+ "'," +
@@ -63,7 +63,6 @@ public class TariffPlanMigration {
                     tariffPlan.getCallPrice() + ");";
 
             resultSet = stmt.executeQuery(insertQuery);
-            //INSERT INTO TariffPlan (id, name, subscriptionFee, debit, smsPrice, callPrice) VALUES (1,Lemon,3.2,everyDay,2.1,3.2);
         } catch (SQLException e) {
             //logger.error(e);
             //throw new DatabaseException(e.getMessage());

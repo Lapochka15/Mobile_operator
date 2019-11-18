@@ -1,7 +1,7 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
-import migration.TariffPlanMigration;
+import migration.*;
 import models.*;
 import org.wiztools.xsdgen.ParseException;
 import org.wiztools.xsdgen.XsdGen;
@@ -18,9 +18,13 @@ import java.util.logging.Logger;
 
 public class Main {
 
-    public static String ConnectionString = "jdbc:sqlserver://LAPTOP-0681GAS6\\SQLEXPRESS:1433;databaseName=Mobile_opeartor;user=Katya_dub;password=12345678qwerty";
+    public static String ConnectionString = "jdbc:sqlserver://LAPTOP-0681GAS6\\SQLEXPRESS:1433;databaseName=Mobile_operator;user=Katya_dub;password=12345678qwerty";
 
     public static TariffPlanMigration tariffPlanMigration;
+    public static SMSMigration smsMigration;
+    public static CompanyMigration companyMigration;
+    public static CallMigration callMigration;
+    public static ClientMigration clientMigration;
 
     public static void main(String[] args) throws IOException, ParseException, ClassNotFoundException {
         DataBaseObject db = DataBaseObject.GetInstance();
@@ -46,33 +50,26 @@ public class Main {
         gen.write(new FileOutputStream(out));
 
          */
-        int a = 0;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.Statement");
+
         try (Connection connection = DriverManager.getConnection(ConnectionString); ) {
 
             tariffPlanMigration = new TariffPlanMigration(connection);
-
-            tariffPlanMigration.migrate(db.getTariffPlans());
-            /*Statement stmt = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-
-            String SQL = "SELECT TOP 10 * FROM Person;";
-            ResultSet rs = stmt.executeQuery(SQL);
-
-            System.out.println(rs.getFetchDirection());
-
-            while(rs.next()){
-                int id = rs.getInt("id");
-                String str = rs.getString("Name");
-                System.out.println(id);
-                System.out.println(str);
-            }
-            int t = 5;*/
+            companyMigration = new CompanyMigration(connection);
+            clientMigration = new ClientMigration(connection);
+            smsMigration = new SMSMigration(connection);
+            callMigration = new CallMigration(connection);
 
 
+
+            //tariffPlanMigration.migrate(db.getTariffPlans());
+            //companyMigration.migrate(db.getCompanies());
+            //clientMigration.migrate(db.getClients());
+            //smsMigration.migrate(db.getSmsList());
+            callMigration.migrate(db.getCalls());
 
         }
-        // Handle any errors that may have occurred.
         catch (SQLException e) {
             e.printStackTrace();
         }
