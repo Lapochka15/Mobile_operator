@@ -1,15 +1,20 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import exceptions.InvalidFileException;
 import exceptions.NotFoundException;
 import migration.*;
 import models.*;
 import org.apache.logging.log4j.LogManager;
 import org.wiztools.xsdgen.ParseException;
+import org.wiztools.xsdgen.XsdGen;
 import services.FileValidationService;
 import services.LoadingDataService;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
-
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,9 +36,9 @@ public class Main {
 
     private static final Logger logger = LogManager.getLogger(Main.class);
 
-    public static void main(String[] args) throws  ClassNotFoundException {
-        //DataBaseObject db = DataBaseObject.GetInstance();
-        /*XmlMapper xmlMapper = new XmlMapper();
+    public static void main(String[] args) throws ClassNotFoundException, IOException, ParseException {
+        DataBaseObject db = DataBaseObject.GetInstance();
+        XmlMapper xmlMapper = new XmlMapper();
         String xml = xmlMapper.writeValueAsString(db);
         System.out.println(xml);
         try(FileWriter writer = new FileWriter("in.xml", false))
@@ -48,12 +53,12 @@ public class Main {
         gen.parse(new File("in.xml"));
         File out = new File("out.xsd");
         gen.write(new FileOutputStream(out));
-         */
+
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         //Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.Statement");
 
         try (Connection connection = DriverManager.getConnection(ConnectionString); ) {
-            DataBaseObject db = loadingDataService.loadDateFromXml(fileValidation.checkFile(XML_DATA_FILE));
+            db = loadingDataService.loadDateFromXml(fileValidation.checkFile(XML_DATA_FILE));
 
             tariffPlanMigration = new TariffPlanMigration(connection);
             companyMigration = new CompanyMigration(connection);
@@ -61,11 +66,11 @@ public class Main {
             smsMigration = new SMSMigration(connection);
             callMigration = new CallMigration(connection);
 
-            //tariffPlanMigration.migrate(db.getTariffPlans());
-            //companyMigration.migrate(db.getCompanies());
-            //clientMigration.migrate(db.getClients());
-            //smsMigration.migrate(db.getSmsList());
-            //callMigration.migrate(db.getCalls());
+            tariffPlanMigration.migrate(db.getTariffPlans());
+            companyMigration.migrate(db.getCompanies());
+            clientMigration.migrate(db.getClients());
+            smsMigration.migrate(db.getSmsList());
+            callMigration.migrate(db.getCalls());
 
         }
         catch (InvalidFileException e){

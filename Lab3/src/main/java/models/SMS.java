@@ -1,6 +1,8 @@
-package DataAccess.Models;
+package models;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class SMS extends Service {
     private int textSize;
@@ -22,7 +24,8 @@ public class SMS extends Service {
         this.textSize = textSize;
         this.destinationClientId = destination;
         this.serviceId = id;
-        this.dateTime = LocalDateTime.now();
+        this.dateTime = new Date();
+
     }
 
     public String toString(){

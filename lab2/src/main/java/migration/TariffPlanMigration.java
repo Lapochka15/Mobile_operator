@@ -1,5 +1,4 @@
 package migration;
-
 import com.sun.tools.javac.Main;
 import exceptions.DatabaseException;
 import models.TariffPlan;
@@ -19,10 +18,9 @@ public class TariffPlanMigration {
             + " (Id, Name, SubscriptionFee, Debit, SmsPrice, CallPrice) VALUES ";
     // (moreid, ...)
 
-
     private Connection dbConnection;
 
-    public TariffPlanMigration( Connection dbConnection){
+    public TariffPlanMigration(Connection dbConnection){
         this.dbConnection = dbConnection;
     }
 
@@ -68,7 +66,7 @@ public class TariffPlanMigration {
             resultSet = stmt.executeQuery(insertQuery);
         } catch (SQLException e) {
             logger.error(e);
-            throw new DatabaseException(e.getMessage());
+            //throw new DatabaseException(e.getMessage());
         } finally {
             try {
                 if (resultSet != null)

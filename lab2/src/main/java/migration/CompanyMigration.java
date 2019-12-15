@@ -67,9 +67,8 @@ public class CompanyMigration {
             resultSet = stmt.executeQuery(insertQuery);
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             logger.error(e);
-            throw new DatabaseException(e.getMessage());
+            //throw new DatabaseException(e.getMessage());
         } finally {
             try {
                 if (resultSet != null)

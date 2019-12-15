@@ -72,7 +72,7 @@ public class ClientMigration {
 
         } catch (SQLException e) {
             logger.error(e);
-            throw new DatabaseException(e.getMessage());
+            //throw new DatabaseException(e.getMessage());
         } finally {
             try {
                 if (resultSet != null)
