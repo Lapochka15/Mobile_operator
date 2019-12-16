@@ -12,7 +12,7 @@
 
 <div>       <!-- content -->
   <div>    <!-- buttons holder -->
-    <button onclick="location.href+='/add'">LOAD</button>
+    <button onclick="location.href+='add'">LOAD</button>
   </div>
 </div>
 </body>

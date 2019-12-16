@@ -7,7 +7,7 @@
     <!-- add servlet -->
     <servlet>
         <servlet-name>serv</servlet-name>
-        <servlet-class>AddServlet</servlet-class>
+        <servlet-class>app.epam.AddServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
