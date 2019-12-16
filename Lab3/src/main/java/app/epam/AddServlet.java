@@ -5,14 +5,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
+
+import exceptions.DataSourceException;
+import models.*;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+import parsers.*;
 import services.FileValidationService;
 import services.LoadingDataService;
 
 public class AddServlet extends  HttpServlet {
-    //public static FileValidationService fileValidation = new FileValidationService();
-    //public static LoadingDataService loadingDataService = new LoadingDataService();
+    public static FileValidationService fileValidation = new FileValidationService();
+    public static LoadingDataService loadingDataService = new LoadingDataService();
 
-    //private static final String XML_DATA_FILE = "src/main/resources/in.xml";
+    private static final String XML_DATA_FILE = "src/main/resources/in.xml";
 
     public AddServlet(){
 
@@ -21,25 +30,42 @@ public class AddServlet extends  HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        /*boolean isValidFile = loadingDataService.loadDateFromXml(fileValidation.checkFile(XML_DATA_FILE));
+        boolean isValidFile = loadingDataService.loadDateFromXml(fileValidation.checkFile(XML_DATA_FILE));
 
         if(!isValidFile) {
             req.setAttribute("xmlStatus", "XML is incorrect!");
         }else {
             req.setAttribute("xmlStatus", "XML is correct!");
-        }*/
+        }
 
-        //req.setAttribute("xmlStatus", "XML is incorrect!");
-        /*ArrayList<Call> calls = null;
 
-        XmlParser parser = new CallDomParser();
         try {
-            calls = parser.getDataFromFile(XML_DATA_FILE);
-        } catch (DataSourceException e) {
+            XmlParser parser = new CallDomParser();
+            List<Call> calls = parser.getDataFromFile(XML_DATA_FILE);
+
+            parser = new SMSDomParser();
+            List<SMS> smsList = parser.getDataFromFile(XML_DATA_FILE);
+
+            parser = new TariffPlanDomParser();
+            List<TariffPlan> tariffPlans = parser.getDataFromFile(XML_DATA_FILE);
+
+            parser = new ClientStaxParser();
+            List<Client> clients = parser.getDataFromFile(XML_DATA_FILE);
+
+            CompanySaxParser companySaxParser = new CompanySaxParser();
+            XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            xmlReader.setContentHandler(companySaxParser);
+            xmlReader.parse(new InputSource(XML_DATA_FILE));
+            List<Company> companies = companySaxParser.getCompanies();
+
+            req.setAttribute("clients", clients);
+
+        } catch (SAXException | DataSourceException e) {
             e.printStackTrace();
         }
 
-        req.setAttribute("calls", calls);*/
+
+
         req.getRequestDispatcher("table.jsp").forward(req, resp);
     }
 }
