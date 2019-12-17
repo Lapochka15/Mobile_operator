@@ -2,6 +2,8 @@ package parsers;
 
 import exceptions.DataSourceException;
 import models.Call;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -28,6 +30,9 @@ public class CallDomParser implements XmlDomParser, XmlParser<Call> {
          <dateTime>2019-11-14 22:23:00</dateTime>
          <duration>03:00:00</duration>
     </Call>*/
+
+    private static final Logger logger = LogManager.getLogger(CallDomParser.class);
+
     enum CallTag {
          serviceId, sourceClientId, destinationClientId, dateTime, duration
     }
@@ -46,6 +51,7 @@ public class CallDomParser implements XmlDomParser, XmlParser<Call> {
                 }
             }
         } catch (IOException | ParserConfigurationException | SAXException e) {
+            logger.error("File " + filePath + " not found");
             throw new DataSourceException("File " + filePath + " not found");
         }
         return calls;
@@ -79,7 +85,7 @@ public class CallDomParser implements XmlDomParser, XmlParser<Call> {
                             break;
                     }
                 } catch (DOMException | ParseException e) {
-                    //TODO log
+                    logger.error(e.getStackTrace());
                 }
             }
         }

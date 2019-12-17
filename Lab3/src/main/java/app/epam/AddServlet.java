@@ -9,6 +9,8 @@ import java.util.List;
 
 import exceptions.DataSourceException;
 import models.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -20,6 +22,8 @@ import services.LoadingDataService;
 public class AddServlet extends  HttpServlet {
     public static FileValidationService fileValidation = new FileValidationService();
     public static LoadingDataService loadingDataService = new LoadingDataService();
+
+    private static final Logger logger = LogManager.getLogger(AddServlet.class);
 
     private static final String XML_DATA_FILE = "src/main/resources/in.xml";
 
@@ -61,7 +65,7 @@ public class AddServlet extends  HttpServlet {
             req.setAttribute("clients", clients);
 
         } catch (SAXException | DataSourceException e) {
-            e.printStackTrace();
+            logger.error("Error: "+ e.getStackTrace());
         }
 
 

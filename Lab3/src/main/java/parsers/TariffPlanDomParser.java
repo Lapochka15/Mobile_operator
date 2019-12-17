@@ -5,6 +5,8 @@ import exceptions.DataSourceException;
 import models.Debit;
 import models.SMS;
 import models.TariffPlan;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -29,10 +31,11 @@ public class TariffPlanDomParser implements XmlDomParser, XmlParser<TariffPlan> 
          <smsPrice>2.9</smsPrice>
          <callPrice>3.2</callPrice>
       </TariffPlan>*/
+    private static final Logger logger = LogManager.getLogger(TariffPlanDomParser.class);
 
-enum TariffPlanTag {
-    id, name, subscriptionFee, debit, smsPrice, callPrice
-}
+    enum TariffPlanTag {
+        id, name, subscriptionFee, debit, smsPrice, callPrice
+    }
 
     @Override
     public ArrayList<TariffPlan> getDataFromFile(String filePath) throws DataSourceException {
@@ -48,6 +51,7 @@ enum TariffPlanTag {
                 }
             }
         } catch (IOException | ParserConfigurationException | SAXException e) {
+            logger.error("File " + filePath + " not found");
             throw new DataSourceException("File " + filePath + " not found");
         }
         return tariffPlans;
@@ -85,6 +89,7 @@ enum TariffPlanTag {
                             break;
                     }
                 } catch (DOMException e) {
+                    logger.error(e.getStackTrace());
                     //TODO log
                 }
             }

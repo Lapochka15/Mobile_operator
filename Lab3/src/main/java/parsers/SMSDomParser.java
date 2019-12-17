@@ -3,6 +3,8 @@ package parsers;
 import exceptions.DataSourceException;
 import models.Call;
 import models.SMS;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -28,6 +30,9 @@ public class SMSDomParser implements XmlDomParser, XmlParser<SMS> {
          <textSize>123</textSize>
       </SMS>
    </SMSes>*/
+
+    private static final Logger logger = LogManager.getLogger(SMSDomParser.class);
+
     enum SMSTag {
         serviceId, sourceClientId, destinationClientId, dateTime, textSize
     }
@@ -46,6 +51,7 @@ public class SMSDomParser implements XmlDomParser, XmlParser<SMS> {
                 }
             }
         } catch (IOException | ParserConfigurationException | SAXException e) {
+            logger.error("File " + filePath + " not found");
             throw new DataSourceException("File " + filePath + " not found");
         }
         return smses;
@@ -79,7 +85,7 @@ public class SMSDomParser implements XmlDomParser, XmlParser<SMS> {
                             break;
                     }
                 } catch (DOMException | ParseException e) {
-                    //TODO log
+                    logger.error(e.getStackTrace());
                 }
             }
         }

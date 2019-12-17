@@ -1,6 +1,8 @@
 package parsers;
 
 import models.Company;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -15,6 +17,9 @@ public class CompanySaxParser extends DefaultHandler {
          <discount>0.4</discount>
       </Company>
       **/
+
+    private static final Logger logger = LogManager.getLogger(CompanySaxParser.class);
+
     enum CompanyTag {
        Company, Companies, companyId, name, discount;
     }
@@ -64,6 +69,7 @@ public class CompanySaxParser extends DefaultHandler {
                     break;
             }
         } catch (Exception e) {
+            logger.error(e.getStackTrace());
         }
 
     }

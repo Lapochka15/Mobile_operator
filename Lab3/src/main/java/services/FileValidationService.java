@@ -1,6 +1,9 @@
 package services;
 
 import exceptions.NotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import parsers.TariffPlanDomParser;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
@@ -10,6 +13,8 @@ import javax.xml.validation.Validator;
 import java.io.*;
 
 public class FileValidationService {
+    private static final Logger logger = LogManager.getLogger(FileValidationService.class);
+
     public boolean validate(File xmlFile, File xsdFile) {
         try {
             SchemaFactory factory =
@@ -19,9 +24,9 @@ public class FileValidationService {
             validator.validate(new StreamSource(xmlFile));
             return true;
         } catch (IOException e) {
-            //System.out.println("Exception: " + e.getMessage());
+            logger.error("Exception: " + e.getMessage());
         } catch (org.xml.sax.SAXException e) {
-            //System.out.println("Exception: " + e.getMessage());
+            logger.error("Exception: " + e.getMessage());
         }
         return false;
     }

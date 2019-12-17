@@ -3,6 +3,8 @@ package parsers;
 import exceptions.DataSourceException;
 import models.Call;
 import models.Client;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -27,6 +29,7 @@ public class ClientStaxParser implements XmlParser<Client> {
          <activeClient>true</activeClient>
       </Client>
     * */
+    private static final Logger logger = LogManager.getLogger(ClientStaxParser.class);
     enum ClientTag {
         Client, Clients, clientId, name, surname, bankAccount, tariffPlanId, companyId, activeClient
     }
@@ -44,6 +47,7 @@ public class ClientStaxParser implements XmlParser<Client> {
             reader = xmlInputFactory.createXMLStreamReader(inputStream);
             parse();
         } catch (FileNotFoundException | XMLStreamException e) {
+            logger.error(e.getStackTrace());
             throw new DataSourceException(e.getMessage());
         }
         return clients;
@@ -109,6 +113,7 @@ public class ClientStaxParser implements XmlParser<Client> {
                             client = null;
                         }
                     } catch (Exception e) {
+                        logger.error(e.getStackTrace());
                     }
                     break;
             }
